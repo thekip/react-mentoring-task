@@ -1,0 +1,54 @@
+{
+  "name": "react-mentoring-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "tslib": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
+    "autoprefixer": "^7.1.4",
+    "awesome-typescript-loader": "^3.2.3",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "tslint": "^5.7.0",
+    "tslint-loader": "^3.5.3",
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-merge": "^4.1.0",
+    "yargs": "^8.0.2"
+  },
+  "scripts": {
+    "build": "webpack --env='production'",
+    "start": "webpack-dev-server --progress --watch --content-base src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thekip/react-mentoring-task.git"
+  },
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thekip/react-mentoring-task/issues"
+  },
+  "homepage": "https://github.com/thekip/react-mentoring-task#readme",
+  "engines": {
+    "node": ">= 6.5",
+    "npm": ">= 5.1"
+  }
+}
