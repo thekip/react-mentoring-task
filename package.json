@@ -2,7 +2,6 @@
   "name": "react-mentoring-task",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -17,6 +16,8 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.1.3",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
     "sass-loader": "^6.0.6",
@@ -32,7 +33,8 @@
   "scripts": {
     "build": "webpack --env='production'",
     "start": "webpack-dev-server --progress --watch --content-base src/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -50,5 +52,11 @@
   "engines": {
     "node": ">= 6.5",
     "npm": ">= 5.1"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "tslint --fix",
+      "git add"
+    ]
   }
 }
