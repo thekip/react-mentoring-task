@@ -1,0 +1,8 @@
+@import "../../common/colors";
+@import "../../common/variables";
+
+.host {
+  height: 55px;
+  background-color: $gray;
+  padding: 0 $header-side-padding;
+}

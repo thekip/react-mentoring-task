@@ -1,0 +1,37 @@
+@import '../../common/colors';
+@import '../../common/mixins';
+
+.host {}
+
+.input {
+  height: 55px;
+  border: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+  border-bottom: solid 2px $pink;
+  font-size: 15px;
+  width: 100%;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 15px;
+}
+.heading {
+  text-transform: uppercase;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+}
+
+.submitBtn {
+  margin-left: auto;
+
+  width: 200px;
+  height: 35px;
+  font-size: 13px;
+
+  @include makeColorfulBtn($pink);
+}

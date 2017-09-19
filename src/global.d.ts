@@ -4,6 +4,6 @@ declare module '*.json' {
 }
 
 declare module '*.scss' {
-  const value: string;
+  const value: any;
   export default value;
 }

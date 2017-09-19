@@ -1,0 +1,19 @@
+@import "./common/colors";
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 1025px;
+  margin: 0 auto;
+  height: 100%;
+  //flex-grow: 1;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.footer {
+  background-color: $dark-gray;
+  height: 70px;
+}

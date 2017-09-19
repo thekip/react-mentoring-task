@@ -1,0 +1,15 @@
+@import "../common/colors";
+@import "../common/variables";
+
+.host {
+  height: 290px;
+  padding: 20px $header-side-padding;;
+  box-sizing: border-box;
+  //background-color: black;
+}
+
+.logo {
+  color: $pink;
+  display: block;
+  margin-bottom: 55px;
+}
