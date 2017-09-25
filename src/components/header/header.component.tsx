@@ -6,8 +6,6 @@ export class HeaderComponent extends Component {
   public render() {
     return (
       <header className={styles.host}>
-        <span className={styles.logo}>netflixroulette</span>
-
         <SearchComponent/>
       </header>
     );

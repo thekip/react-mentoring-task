@@ -8,7 +8,7 @@ export class SearchComponent extends Component {
       <div className={styles.host}>
         <h2 className={styles.heading}>Find your movie</h2>
         <form>
-          <input type='text' name='search' className={styles.input}/>
+          <input type='text' placeholder='Kill Bill 2' name='search' className={styles.input}/>
           <div className={styles.actionsRow}>
             <RadioGroupComponent/>
             <button className={styles.submitBtn} type='submit'>Search</button>

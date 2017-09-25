@@ -4,16 +4,23 @@
 .host {}
 
 .input {
+  outline: none;
   height: 55px;
   border: 0;
   padding: 0 20px;
   box-sizing: border-box;
-  border-bottom: solid 2px $pink;
-  font-size: 15px;
+  border-bottom: solid 2px transparent;
+  font-size: 20px;
   width: 100%;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.5);
   margin-bottom: 15px;
+ &::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+  &:focus {
+    border-color: $pink;
+  }
 }
 .heading {
   text-transform: uppercase;
