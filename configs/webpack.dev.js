@@ -26,6 +26,7 @@ module.exports = webpackMerge(commonConfig, {
   devServer: {
     stats: 'minimal',
     historyApiFallback: true,
+    publicPath: '/',
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,

@@ -61,7 +61,7 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
      */
     chunkFilename: '[name].chunk.js',
-
+    publicPath: '/'
   },
 
   resolve: {
