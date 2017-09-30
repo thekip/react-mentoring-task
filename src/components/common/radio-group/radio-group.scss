@@ -4,19 +4,17 @@
 .host {
   display: flex;
   align-items: center;
-  font-size: 10px;
-  font-weight: bold;
-}
-
-.title {
-  text-transform: uppercase;
-  margin-right: 10px;
 }
 
 .item {
   margin-right: 10px;
-  @include makeColorfulBtn($pink);
+  @include makeColorfulBtn(gray);
   padding: 0 15px;
   height: 25px;
+}
 
+.itemActive {
+  @extend .item;
+  @include makeColorfulBtn($pink);
+  cursor: auto;
 }

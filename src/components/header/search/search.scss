@@ -31,6 +31,14 @@
 .actionsRow {
   display: flex;
   align-items: center;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  span {
+    margin-right: 10px;
+  }
+
 }
 
 .submitBtn {
