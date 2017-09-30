@@ -1,4 +1,4 @@
-@import "./common/colors";
+@import "../common/colors";
 
 .wrap {
   display: flex;
@@ -6,7 +6,6 @@
   max-width: 1025px;
   margin: 0 auto;
   height: 100%;
-  //flex-grow: 1;
 }
 
 .content {

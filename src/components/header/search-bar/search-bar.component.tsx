@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import styles from './search.scss';
+import styles from './search-bar.scss';
 import { RadioGroupComponent, RadioGroupOption } from '../../common/radio-group/radio-group.component';
 
-export class SearchComponent extends Component {
+export class SearchBarComponent extends Component {
   private searchByOptions: RadioGroupOption[] = [
     { value: 'title', name: 'Title' },
     { value: 'director', name: 'Director' },
