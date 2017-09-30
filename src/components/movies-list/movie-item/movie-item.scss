@@ -1,3 +1,5 @@
+@import "../../common/colors";
+
 .host {
   width: 300px;
   margin-bottom: 40px;
@@ -8,9 +10,26 @@
 }
 
 .meta {
-  padding: 10px 0;
+  padding: 10px 0 0;
+  display: flex;
+  align-items: center;
 }
 
 .movieName {
   font-weight: bold;
+  text-transform: uppercase;
+}
+
+.year {
+  display: block;
+  padding: 2px 5px;
+  border: 1px solid black;
+  border-radius: 3px;
+  width: fit-content;
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.kind {
+  color: $dark-gray;
 }
