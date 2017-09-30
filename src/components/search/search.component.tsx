@@ -5,6 +5,7 @@ import { MoviesListComponent } from '../movies-list/movies-list.component';
 import { movies } from '../movies-list/movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
 import { LayoutComponent } from '../layout/layout.component';
+import autobind from 'autobind-decorator';
 
 export class SearchComponent extends Component {
   private sortingOptions: RadioGroupOption[] = [
@@ -18,6 +19,7 @@ export class SearchComponent extends Component {
     sorting: this.sortingOptions[0],
   };
 
+  @autobind
   private handleSortingChange(sorting: RadioGroupOption) {
     this.setState({sorting});
   }
@@ -34,7 +36,7 @@ export class SearchComponent extends Component {
             <RadioGroupComponent
               options={this.state.sortingOptions}
               selected={this.state.sorting}
-              onSelect={this.handleSortingChange.bind(this)}
+              onSelect={this.handleSortingChange}
             />
           </div>
         </div>

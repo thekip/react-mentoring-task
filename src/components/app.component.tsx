@@ -7,7 +7,10 @@ export class App extends Component {
   public render() {
     return (
       <Router>
-        <Route path='/' component={SearchComponent}/>
+        <div>
+          <Route path='/' component={SearchComponent}/>
+          <Route path='search/' component={SearchComponent}/>
+        </div>
       </Router>
     );
   }
