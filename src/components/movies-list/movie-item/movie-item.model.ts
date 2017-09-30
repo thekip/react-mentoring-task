@@ -5,4 +5,8 @@ export interface MovieItemModel {
   kind: string;
   rating: number;
   posterUrl: string;
+  director: string;
+  description: string;
+  cast: string;
+  duration: number;
 }
