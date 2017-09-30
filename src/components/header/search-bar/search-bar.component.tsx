@@ -3,9 +3,12 @@ import styles from './search-bar.scss';
 import { RadioGroupComponent, RadioGroupOption } from '../../common/radio-group/radio-group.component';
 import { History } from 'history';
 import autobind from 'autobind-decorator';
+import { match } from 'react-router';
+import { SearchUrlParams } from '../../routing/search';
 
 interface SearchBarComponentProps {
   history?: History;
+  match?: match<SearchUrlParams>;
 }
 
 export class SearchBarComponent extends Component<SearchBarComponentProps> {
@@ -17,7 +20,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   public state = {
     searchByOptions: this.searchByOptions,
     searchBy: this.searchByOptions[0],
-    query: '',
+    query: this.props.match.params.query,
   };
 
   @autobind

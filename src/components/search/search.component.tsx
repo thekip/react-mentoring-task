@@ -6,8 +6,13 @@ import { movies } from '../movies-list/movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
 import { LayoutComponent } from '../layout/layout.component';
 import autobind from 'autobind-decorator';
+import { MovieItemModel } from '../movies-list/movie-item/movie-item.model';
+import { RouteComponentProps } from 'react-router';
+import { SearchUrlParams } from '../routing/search';
 
-export class SearchComponent extends Component {
+type SearchComponentProps = RouteComponentProps<SearchUrlParams>;
+
+export class SearchComponent extends Component<SearchComponentProps> {
   private sortingOptions: RadioGroupOption[] = [
     {value: 'releaseDate', name: 'release date'},
     {value: 'rating', name: 'rating'},
@@ -18,6 +23,27 @@ export class SearchComponent extends Component {
     sortingOptions: this.sortingOptions,
     sorting: this.sortingOptions[0],
   };
+
+  public componentWillMount() {
+    this.setMovies(this.props.match.params.query);
+  }
+
+  public componentWillReceiveProps(props: SearchComponentProps) {
+    this.setMovies(props.match.params.query);
+  }
+
+  private setMovies(query: string) {
+    if (!query) {
+      this.setState({ items: [] });
+      return;
+    }
+
+    this.setState({ items: this.filterMovies(query, movies) }) ;
+  }
+
+  private filterMovies(query: string, db: MovieItemModel[]) {
+    return db.filter((movie) => movie.name.toLowerCase().includes(query.toLowerCase()));
+  }
 
   @autobind
   private handleSortingChange(sorting: RadioGroupOption) {
