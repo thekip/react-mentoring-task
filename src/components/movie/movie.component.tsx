@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LayoutComponent } from '../layout/layout.component';
 import { MoviesListComponent } from '../movies-list/movies-list.component';
-import { HeaderComponent } from './header/header.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import styles from './movie.scss';
 import { movies as db } from '../../movies-db';
 import { RouteComponentProps } from 'react-router';
@@ -48,7 +48,7 @@ export class MoviePageComponent extends Component<MoviePageComponentProps> {
 
     return (
       <LayoutComponent
-        header={<HeaderComponent movie={movie} onBack={this.handleOnBackClick}/>}
+        header={<MovieDetailsComponent movie={movie} onBack={this.handleOnBackClick}/>}
         content={this.getContent(movie)}
       />
     );

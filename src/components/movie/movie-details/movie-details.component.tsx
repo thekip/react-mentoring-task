@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import styles from './header.scss';
+import styles from './movie-details.scss';
 import { MovieItemModel } from '../../movies-list/movie-item/movie-item.model';
+import { HeaderComponent } from '../../header/header.component';
 
 interface HeaderComponentProps {
   movie: MovieItemModel;
   onBack: () => void;
 }
 
-export class HeaderComponent extends Component<HeaderComponentProps> {
-
+export class MovieDetailsComponent extends Component<HeaderComponentProps> {
   public render() {
     const movie = this.props.movie;
 
     return (
-      <header className={styles.host}>
-        <button
-          className={styles.backToSearch}
-          onClick={this.props.onBack}>
-          Search
-        </button>
+      <HeaderComponent>
         <div className={styles.filmDetails}>
+          <button
+            className={styles.backToSearch}
+            onClick={this.props.onBack}>
+            Search
+          </button>
           <div className={styles.poster}>
             <img src={movie.posterUrl}/>
           </div>
@@ -43,8 +43,7 @@ export class HeaderComponent extends Component<HeaderComponentProps> {
             </div>
           </div>
         </div>
-
-      </header>
+      </HeaderComponent>
     );
   }
 }

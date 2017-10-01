@@ -2,19 +2,8 @@
 @import "../../common/variables";
 @import "../../common/mixins";
 
-.host {
-  padding: 20px $header-side-padding;;
-  box-sizing: border-box;
-  position: relative;
-}
-
-.logo {
-  color: $pink;
-  display: block;
-  margin-bottom: 55px;
-}
-
 .filmDetails {
+  position: relative;
   display: flex;
 }
 
