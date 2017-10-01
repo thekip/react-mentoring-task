@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './search.scss';
-import { HeaderComponent } from '../header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { MoviesListComponent } from '../movies-list/movies-list.component';
 import { movies } from '../movies-list/movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';

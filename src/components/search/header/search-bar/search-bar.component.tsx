@@ -1,10 +1,10 @@
 import React, { ChangeEvent, Component, FormEvent } from 'react';
 import styles from './search-bar.scss';
-import { RadioGroupComponent, RadioGroupOption } from '../../common/radio-group/radio-group.component';
+import { RadioGroupComponent, RadioGroupOption } from '../../../common/radio-group/radio-group.component';
 import { History } from 'history';
 import autobind from 'autobind-decorator';
 import { match } from 'react-router';
-import { SearchUrlParams } from '../../routing/search';
+import { SearchUrlParams } from '../../../routing/search';
 
 interface SearchBarComponentProps {
   history?: History;
