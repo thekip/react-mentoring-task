@@ -24,21 +24,11 @@ export class SearchComponent extends Component<SearchComponentProps> {
     sorting: this.sortingOptions[0],
   };
 
-  public componentWillMount() {
-    this.setMovies(this.props.match.params.query);
-  }
-
-  public componentWillReceiveProps(props: SearchComponentProps) {
-    this.setMovies(props.match.params.query);
-  }
-
-  private setMovies(query: string) {
-    if (!query) {
-      this.setState({ items: [] });
-      return;
+  private getMovies(): MovieItemModel[] {
+    if (!this.props.match.params.query) {
+      return [];
     }
-
-    this.setState({ items: this.filterMovies(query, movies) }) ;
+    return this.filterMovies(this.props.match.params.query, movies);
   }
 
   private filterMovies(query: string, db: MovieItemModel[]) {
@@ -51,11 +41,12 @@ export class SearchComponent extends Component<SearchComponentProps> {
   }
 
   private renderResults() {
+    const items = this.getMovies();
     return (
       <div className={styles.host}>
         <div className={styles.header}>
           <span className={styles.total}>
-            {this.state.items.length} movies found
+            {items.length} movies found
           </span>
           <div className={styles.sorting}>
             <span>Sort by</span>
@@ -66,7 +57,7 @@ export class SearchComponent extends Component<SearchComponentProps> {
             />
           </div>
         </div>
-        <MoviesListComponent items={this.state.items}/>
+        <MoviesListComponent items={items}/>
       </div>
     );
   }
