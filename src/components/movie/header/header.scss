@@ -1,0 +1,77 @@
+@import "../../common/colors";
+@import "../../common/variables";
+@import "../../common/mixins";
+
+.host {
+  padding: 20px $header-side-padding;;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.logo {
+  color: $pink;
+  display: block;
+  margin-bottom: 55px;
+}
+
+.filmDetails {
+  display: flex;
+}
+
+.poster {
+  width: 300px;
+  flex-shrink: 0;
+  margin-right: 20px;
+
+  img {
+    max-width: 100%;
+  }
+}
+.movieTitle {
+  color: $pink;
+  margin-bottom: 10px;
+}
+
+.kind {
+  display: block;
+  color: #7f7f7f;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  font-weight: bold;
+  margin-bottom: 40px;
+  font-size: 18px;
+  >span {
+    margin-right: 20px;
+  }
+}
+
+.description {
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.director {
+  margin-top: auto;
+}
+
+.director, .cast {
+  color: #7f7f7f;
+  font-size: 14px;
+}
+
+.backToSearch {
+  position: absolute;
+  right: 20px;
+  padding: 3px 10px;
+  @include makeColorfulBtn(gray);
+  font-size: 12px;
+}

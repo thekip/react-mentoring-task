@@ -4,12 +4,13 @@ import styles from './movie-item.scss';
 
 interface MoviesItemComponentProps {
   item: MovieItemModel;
+  onClick: () => void;
 }
 
 export class MoviesItemComponent extends Component<MoviesItemComponentProps> {
   public render() {
     return (
-      <div className={styles.host}>
+      <div className={styles.host} onClick={this.props.onClick}>
         <img className={styles.poster} src={this.props.item.posterUrl}/>
         <div className={styles.meta}>
           <span className={styles.movieName}>{this.props.item.name}</span>

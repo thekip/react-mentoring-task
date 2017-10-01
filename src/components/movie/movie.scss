@@ -1,0 +1,10 @@
+@import "../common/colors";
+@import "../common/variables";
+
+.header {
+  height: 55px;
+  background-color: $gray;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}

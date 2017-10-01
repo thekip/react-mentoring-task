@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './search.scss';
 import { HeaderComponent } from './header/header.component';
 import { MoviesListComponent } from '../movies-list/movies-list.component';
-import { movies } from '../movies-list/movies-db';
+import { movies } from '../../movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
 import { LayoutComponent } from '../layout/layout.component';
 import autobind from 'autobind-decorator';
@@ -40,6 +40,11 @@ export class SearchComponent extends Component<SearchComponentProps> {
     this.setState({sorting});
   }
 
+  @autobind
+  private handleMovieClick(item: MovieItemModel) {
+    this.props.history.push('/film/' + item.name);
+  }
+
   private renderResults() {
     const items = this.getMovies();
     return (
@@ -57,7 +62,7 @@ export class SearchComponent extends Component<SearchComponentProps> {
             />
           </div>
         </div>
-        <MoviesListComponent items={items}/>
+        <MoviesListComponent items={items} onClick={this.handleMovieClick}/>
       </div>
     );
   }
