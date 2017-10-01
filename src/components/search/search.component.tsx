@@ -15,12 +15,11 @@ type SearchComponentProps = RouteComponentProps<SearchUrlParams>;
 
 export class SearchComponent extends Component<SearchComponentProps> {
   private sortingOptions: RadioGroupOption[] = [
-    {value: 'releaseDate', name: 'release date'},
+    {value: 'releaseYear', name: 'release date'},
     {value: 'rating', name: 'rating'},
   ];
 
   public state = {
-    items: movies,
     sortingOptions: this.sortingOptions,
     sorting: this.sortingOptions[0],
   };
@@ -33,7 +32,10 @@ export class SearchComponent extends Component<SearchComponentProps> {
   }
 
   private filterMovies(query: string, db: MovieItemModel[]) {
-    return db.filter((movie) => movie.name.toLowerCase().includes(query.toLowerCase()));
+    const sortingKey = this.state.sorting.value as any;
+    return db
+      .filter((movie) => movie.name.toLowerCase().includes(query.toLowerCase()))
+      .sort(((a: any, b: any) => a[sortingKey] - b[sortingKey]) as any);
   }
 
   @autobind
@@ -51,8 +53,7 @@ export class SearchComponent extends Component<SearchComponentProps> {
     this.props.history.push('/search/' + query);
   }
 
-  private renderResults() {
-    const items = this.getMovies();
+  private renderResults(items: MovieItemModel[]) {
     return (
       <div className={styles.host}>
         <div className={styles.header}>
@@ -85,8 +86,10 @@ export class SearchComponent extends Component<SearchComponentProps> {
   }
 
   private getContent() {
-    return this.state.items.length
-      ? this.renderResults()
+    const items = this.getMovies();
+
+    return items.length
+      ? this.renderResults(items)
       : this.renderEmptyState();
   }
 

@@ -6,7 +6,7 @@ export const movies: MovieItemModel[] = [
     name: 'Kill Bill',
     releaseYear: 2003,
     kind: 'slasher',
-    rating: 5,
+    rating: 8,
     posterUrl: 'https://st.kp.yandex.net/images/film_iphone/iphone360_2717.jpg',
     director: 'Quentin Tarantino',
     description: 'long text',
