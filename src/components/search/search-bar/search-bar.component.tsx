@@ -1,14 +1,11 @@
 import React, { ChangeEvent, Component, FormEvent } from 'react';
 import styles from './search-bar.scss';
-import { RadioGroupComponent, RadioGroupOption } from '../../../common/radio-group/radio-group.component';
-import { History } from 'history';
+import { RadioGroupComponent, RadioGroupOption } from '../../common/radio-group/radio-group.component';
 import autobind from 'autobind-decorator';
-import { match } from 'react-router';
-import { SearchUrlParams } from '../../../routing/search';
 
 interface SearchBarComponentProps {
-  history?: History;
-  match?: match<SearchUrlParams>;
+  query: string;
+  onSearch: (query: string) => void;
 }
 
 export class SearchBarComponent extends Component<SearchBarComponentProps> {
@@ -18,9 +15,8 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   ];
 
   public state = {
-    searchByOptions: this.searchByOptions,
     searchBy: this.searchByOptions[0],
-    query: this.props.match.params.query || '',
+    query: this.props.query || '',
   };
 
   @autobind
@@ -31,7 +27,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   @autobind
   private handleSubmit(event: FormEvent<any>) {
     event.preventDefault();
-    this.props.history.push('/search/' + this.state.query);
+    this.props.onSearch(this.state.query);
   }
 
   @autobind
@@ -54,7 +50,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
             <span>Search by</span>
             <RadioGroupComponent
               selected={this.state.searchBy}
-              options={this.state.searchByOptions}
+              options={this.searchByOptions}
               onSelect={this.handleSelectSearchBy}
             />
             <button className={styles.submitBtn} type='submit'>Search</button>

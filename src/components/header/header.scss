@@ -1,8 +1,7 @@
-@import "../../common/colors";
-@import "../../common/variables";
+@import "../common/colors";
+@import "../common/variables";
 
 .host {
-  height: 230px;
   padding: 20px $header-side-padding;;
   box-sizing: border-box;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './search.scss';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../header/header.component';
 import { MoviesListComponent } from '../movies-list/movies-list.component';
 import { movies } from '../../movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
@@ -9,6 +9,7 @@ import autobind from 'autobind-decorator';
 import { MovieItemModel } from '../movies-list/movie-item/movie-item.model';
 import { RouteComponentProps } from 'react-router';
 import { SearchUrlParams } from '../routing/search';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 type SearchComponentProps = RouteComponentProps<SearchUrlParams>;
 
@@ -43,6 +44,11 @@ export class SearchComponent extends Component<SearchComponentProps> {
   @autobind
   private handleMovieClick(item: MovieItemModel) {
     this.props.history.push('/film/' + item.name);
+  }
+
+  @autobind
+  private handleSearch(query: string) {
+    this.props.history.push('/search/' + query);
   }
 
   private renderResults() {
@@ -84,10 +90,20 @@ export class SearchComponent extends Component<SearchComponentProps> {
       : this.renderEmptyState();
   }
 
+  private getHeader() {
+    return (
+      <HeaderComponent>
+        <SearchBarComponent
+          onSearch={this.handleSearch}
+          query={this.props.match.params.query}/>
+      </HeaderComponent>
+    );
+  }
+
   public render() {
     return (
       <LayoutComponent
-        header={<HeaderComponent/>}
+        header={this.getHeader()}
         content={this.getContent()}
       />
     );
