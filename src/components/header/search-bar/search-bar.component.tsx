@@ -20,7 +20,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   public state = {
     searchByOptions: this.searchByOptions,
     searchBy: this.searchByOptions[0],
-    query: this.props.match.params.query,
+    query: this.props.match.params.query || '',
   };
 
   @autobind
