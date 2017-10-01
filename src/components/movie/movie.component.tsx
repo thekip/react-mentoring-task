@@ -6,7 +6,7 @@ import styles from './movie.scss';
 import { movies as db } from '../../movies-db';
 import { RouteComponentProps } from 'react-router';
 import { MovieUrlParams } from '../routing/movie';
-import { MovieItemModel } from '../movies-list/movie-item/movie-item.model';
+import { MovieItemModel } from '../../movie-item.model';
 import autobind from 'autobind-decorator';
 
 type MoviePageComponentProps = RouteComponentProps<MovieUrlParams>;

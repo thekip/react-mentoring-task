@@ -1,4 +1,4 @@
-import { MovieItemModel } from './components/movies-list/movie-item/movie-item.model';
+import { MovieItemModel } from './movie-item.model';
 
 export const movies: MovieItemModel[] = [
   {

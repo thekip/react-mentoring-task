@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MovieItemModel } from './movie-item.model';
+import { MovieItemModel } from '../../../movie-item.model';
 import styles from './movie-item.scss';
 
 interface MoviesItemComponentProps {

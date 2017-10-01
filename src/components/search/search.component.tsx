@@ -6,7 +6,7 @@ import { movies } from '../../movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
 import { LayoutComponent } from '../layout/layout.component';
 import autobind from 'autobind-decorator';
-import { MovieItemModel } from '../movies-list/movie-item/movie-item.model';
+import { MovieItemModel } from '../../movie-item.model';
 import { RouteComponentProps } from 'react-router';
 import { SearchUrlParams } from '../routing/search';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -22,6 +22,7 @@ export class SearchComponent extends Component<SearchComponentProps> {
   public state = {
     sortingOptions: this.sortingOptions,
     sorting: this.sortingOptions[0],
+    searchBy: 'name',
   };
 
   private getMovies(): MovieItemModel[] {
@@ -33,8 +34,9 @@ export class SearchComponent extends Component<SearchComponentProps> {
 
   private filterMovies(query: string, db: MovieItemModel[]) {
     const sortingKey = this.state.sorting.value as any;
+    const searchKey = this.state.searchBy;
     return db
-      .filter((movie) => movie.name.toLowerCase().includes(query.toLowerCase()))
+      .filter((movie: any) => movie[searchKey].toLowerCase().includes(query.toLowerCase()))
       .sort(((a: any, b: any) => a[sortingKey] - b[sortingKey]) as any);
   }
 
@@ -51,6 +53,11 @@ export class SearchComponent extends Component<SearchComponentProps> {
   @autobind
   private handleSearch(query: string) {
     this.props.history.push('/search/' + query);
+  }
+
+  @autobind
+  private handleChangeSearchBy(searchBy: string) {
+    this.setState({searchBy});
   }
 
   private renderResults(items: MovieItemModel[]) {
@@ -97,7 +104,9 @@ export class SearchComponent extends Component<SearchComponentProps> {
     return (
       <HeaderComponent>
         <SearchBarComponent
+          searchBy={this.state.searchBy}
           onSearch={this.handleSearch}
+          onChangeSearchBy={this.handleChangeSearchBy}
           query={this.props.match.params.query}/>
       </HeaderComponent>
     );

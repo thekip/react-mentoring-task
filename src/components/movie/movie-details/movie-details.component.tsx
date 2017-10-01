@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './movie-details.scss';
-import { MovieItemModel } from '../../movies-list/movie-item/movie-item.model';
+import { MovieItemModel } from '../../../movie-item.model';
 import { HeaderComponent } from '../../header/header.component';
 
 interface HeaderComponentProps {

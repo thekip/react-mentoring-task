@@ -5,23 +5,24 @@ import autobind from 'autobind-decorator';
 
 interface SearchBarComponentProps {
   query: string;
+  searchBy: string;
+  onChangeSearchBy: (property: string) => void;
   onSearch: (query: string) => void;
 }
 
 export class SearchBarComponent extends Component<SearchBarComponentProps> {
   private searchByOptions: RadioGroupOption[] = [
-    { value: 'title', name: 'Title' },
+    { value: 'name', name: 'Title' },
     { value: 'director', name: 'Director' },
   ];
 
   public state = {
-    searchBy: this.searchByOptions[0],
     query: this.props.query || '',
   };
 
   @autobind
   private handleSelectSearchBy(searchBy: RadioGroupOption) {
-    this.setState({searchBy});
+    this.props.onChangeSearchBy(searchBy.value);
   }
 
   @autobind
@@ -36,6 +37,8 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   }
 
   public render() {
+    const searchBy = this.searchByOptions.find((o) => o.value === this.props.searchBy);
+
     return (
       <div className={styles.host}>
         <h2 className={styles.heading}>Find your movie</h2>
@@ -49,7 +52,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
           <div className={styles.actionsRow}>
             <span>Search by</span>
             <RadioGroupComponent
-              selected={this.state.searchBy}
+              selected={searchBy}
               options={this.searchByOptions}
               onSelect={this.handleSelectSearchBy}
             />
