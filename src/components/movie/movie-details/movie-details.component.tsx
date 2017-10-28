@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styles from './movie-details.scss';
 import { MovieItemModel } from '../../../movie-item.model';
 import { HeaderComponent } from '../../header/header.component';
@@ -8,7 +8,7 @@ interface HeaderComponentProps {
   onBack: () => void;
 }
 
-export class MovieDetailsComponent extends Component<HeaderComponentProps> {
+export class MovieDetailsComponent extends PureComponent<HeaderComponentProps> {
   public render() {
     const movie = this.props.movie;
 

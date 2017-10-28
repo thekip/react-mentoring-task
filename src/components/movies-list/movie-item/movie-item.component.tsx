@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { MovieItemModel } from '../../../movie-item.model';
 import styles from './movie-item.scss';
 
@@ -7,7 +7,7 @@ interface MoviesItemComponentProps {
   onClick: () => void;
 }
 
-export class MoviesItemComponent extends Component<MoviesItemComponentProps> {
+export class MoviesItemComponent extends PureComponent<MoviesItemComponentProps> {
   public render() {
     return (
       <div className={styles.host} onClick={this.props.onClick}>

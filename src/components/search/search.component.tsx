@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styles from './search.scss';
 import { HeaderComponent } from '../header/header.component';
 import { MoviesListComponent } from '../movies-list/movies-list.component';
-import { movies } from '../../movies-db';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
 import { LayoutComponent } from '../layout/layout.component';
 import autobind from 'autobind-decorator';
@@ -10,34 +9,24 @@ import { MovieItemModel } from '../../movie-item.model';
 import { RouteComponentProps } from 'react-router';
 import { SearchUrlParams } from '../routing/search';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { AppState } from '../../store';
+import { connect } from 'react-redux';
+import { MovieCollection } from '../reducers/movies.reducer';
 
-type SearchComponentProps = RouteComponentProps<SearchUrlParams>;
+type OwnProps = RouteComponentProps<SearchUrlParams>;
 
-export class SearchComponent extends Component<SearchComponentProps> {
-  private sortingOptions: RadioGroupOption[] = [
-    {value: 'releaseYear', name: 'release date'},
-    {value: 'rating', name: 'rating'},
-  ];
+interface StoreProps {
+  sortingOptions: RadioGroupOption[];
+  sorting: RadioGroupOption;
+  searchBy: string;
+  movies: MovieCollection;
+}
 
-  public state = {
-    sortingOptions: this.sortingOptions,
-    sorting: this.sortingOptions[0],
-    searchBy: 'name',
-  };
+type Props = StoreProps & OwnProps;
 
-  private getMovies(): MovieItemModel[] {
-    if (!this.props.match.params.query) {
-      return [];
-    }
-    return this.filterMovies(this.props.match.params.query, movies);
-  }
-
-  private filterMovies(query: string, db: MovieItemModel[]) {
-    const sortingKey = this.state.sorting.value as any;
-    const searchKey = this.state.searchBy;
-    return db
-      .filter((movie: any) => movie[searchKey].toLowerCase().includes(query.toLowerCase()))
-      .sort(((a: any, b: any) => a[sortingKey] - b[sortingKey]) as any);
+export class SearchComponent extends PureComponent<Props> {
+  private getMovies(): MovieCollection {
+    return this.props.movies;
   }
 
   @autobind
@@ -60,7 +49,7 @@ export class SearchComponent extends Component<SearchComponentProps> {
     this.setState({searchBy});
   }
 
-  private renderResults(items: MovieItemModel[]) {
+  private renderResults(items: MovieCollection) {
     return (
       <div className={styles.host}>
         <div className={styles.header}>
@@ -70,8 +59,8 @@ export class SearchComponent extends Component<SearchComponentProps> {
           <div className={styles.sorting}>
             <span>Sort by</span>
             <RadioGroupComponent
-              options={this.state.sortingOptions}
-              selected={this.state.sorting}
+              options={this.props.sortingOptions}
+              selected={this.props.sorting}
               onSelect={this.handleSortingChange}
             />
           </div>
@@ -104,7 +93,7 @@ export class SearchComponent extends Component<SearchComponentProps> {
     return (
       <HeaderComponent>
         <SearchBarComponent
-          searchBy={this.state.searchBy}
+          searchBy={this.props.searchBy}
           onSearch={this.handleSearch}
           onChangeSearchBy={this.handleChangeSearchBy}
           query={this.props.match.params.query}/>
@@ -121,3 +110,16 @@ export class SearchComponent extends Component<SearchComponentProps> {
     );
   }
 }
+
+function mapStateToProps(state: AppState): StoreProps {
+  return {
+    sortingOptions: state.search.sortingOptions,
+    sorting: state.search.sorting,
+    searchBy: state.search.searchBy,
+    movies: state.movies,
+  };
+}
+
+export const SearchContainer = connect<StoreProps>(
+  mapStateToProps,
+)(SearchComponent);

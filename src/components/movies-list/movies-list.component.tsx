@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styles from './movies-list.scss';
 import { MoviesItemComponent } from './movie-item/movie-item.component';
 import { MovieItemModel } from '../../movie-item.model';
+import { MovieCollection } from '../reducers/movies.reducer';
 
 interface MoviesListComponentProps {
-  items: MovieItemModel[];
+  items: MovieCollection;
   onClick: (item: MovieItemModel) => void;
 }
 
-export class MoviesListComponent extends Component<MoviesListComponentProps> {
+export class MoviesListComponent extends PureComponent<MoviesListComponentProps> {
   public render() {
     return (
       <div className={styles.host}>

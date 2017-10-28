@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styles from './header.scss';
 
-export class HeaderComponent extends Component {
+export class HeaderComponent extends PureComponent {
   public render() {
     return (
       <header className={styles.host}>

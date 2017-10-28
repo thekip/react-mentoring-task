@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { PureComponent, ReactNode } from 'react';
 import styles from './layout.scss';
 import { FooterComponent } from '../footer/footer.component';
 
@@ -7,7 +7,7 @@ interface LayoutComponentProps {
   content: ReactNode;
 }
 
-export class LayoutComponent extends Component<LayoutComponentProps> {
+export class LayoutComponent extends PureComponent<LayoutComponentProps> {
   public render() {
     return (
       <div className={styles.wrap}>
