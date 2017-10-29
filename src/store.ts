@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { searchReducer, SearchState } from './components/reducers/search.reducer';
-import { MovieCollection, movieReducer } from './components/reducers/movies.reducer';
+import { searchReducer, SearchState } from './reducers/search.reducer';
+import { MovieCollection, movieReducer } from './reducers/movies.reducer';
 
 export interface AppState {
   readonly search: SearchState;

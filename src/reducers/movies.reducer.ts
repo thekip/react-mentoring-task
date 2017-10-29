@@ -1,4 +1,4 @@
-import { MovieItemModel } from '../../movie-item.model';
+import { MovieItemModel } from '../movie-item.model';
 import { MoviesActions } from '../actions/movies.actions';
 
 export type MovieCollection = ReadonlyArray<MovieItemModel>;

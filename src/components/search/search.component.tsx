@@ -7,14 +7,14 @@ import { LayoutComponent } from '../layout/layout.component';
 import autobind from 'autobind-decorator';
 import { MovieItemModel } from '../../movie-item.model';
 import { RouteComponentProps } from 'react-router';
-import { SearchUrlParams } from '../routing/search';
+import { SearchUrlParams } from '../../routing/search';
 import { SearchBarContainer } from './search-bar/search-bar.component';
 import { AppState } from '../../store';
 import { connect } from 'react-redux';
-import { MovieCollection } from '../reducers/movies.reducer';
+import { MovieCollection } from '../../reducers/movies.reducer';
 import { Dispatch } from 'redux';
-import { searchSortingChanged } from '../actions/search.actions';
-import { SortingKinds } from '../reducers/search.reducer';
+import { searchSortingChanged } from '../../actions/search.actions';
+import { SortingKinds } from '../../reducers/search.reducer';
 
 type OwnProps = RouteComponentProps<SearchUrlParams>;
 

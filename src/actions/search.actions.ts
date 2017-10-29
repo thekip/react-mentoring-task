@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { AppState } from '../../store';
+import { AppState } from '../store';
 import { moviesReceived } from './movies.actions';
 import { SortingKinds } from '../reducers/search.reducer';
 

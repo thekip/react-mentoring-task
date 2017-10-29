@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import styles from './movies-list.scss';
 import { MoviesItemComponent } from './movie-item/movie-item.component';
 import { MovieItemModel } from '../../movie-item.model';
-import { MovieCollection } from '../reducers/movies.reducer';
+import { MovieCollection } from '../../reducers/movies.reducer';
 
 interface MoviesListComponentProps {
   items: MovieCollection;

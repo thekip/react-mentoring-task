@@ -4,7 +4,7 @@ import { RadioGroupComponent, RadioGroupOption } from '../../common/radio-group/
 import autobind from 'autobind-decorator';
 import { AppState } from '../../../store';
 import { connect, Dispatch } from 'react-redux';
-import { performSearch, searchByChanged, searchQueryChanged } from '../../actions/search.actions';
+import { performSearch, searchByChanged, searchQueryChanged } from '../../../actions/search.actions';
 
 interface OwnProps {
   query: string;
