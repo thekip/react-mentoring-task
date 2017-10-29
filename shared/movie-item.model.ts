@@ -10,3 +10,5 @@ export interface MovieItemModel {
   cast: string;
   duration: number;
 }
+
+export type MovieCollection = ReadonlyArray<MovieItemModel>;

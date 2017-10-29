@@ -1,16 +1,16 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { searchReducer, SearchState } from './reducers/search.reducer';
-import { MovieCollection, movieReducer } from './reducers/movies.reducer';
+import { detailsReducer, DetailsState } from './reducers/details.reducer';
 
 export interface AppState {
   readonly search: SearchState;
-  readonly movies: MovieCollection;
+  readonly details: DetailsState;
 }
 
 const ottApp = combineReducers<AppState>({
   search: searchReducer,
-  movies: movieReducer,
+  details: detailsReducer,
 });
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

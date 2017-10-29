@@ -5,6 +5,7 @@ import autobind from 'autobind-decorator';
 import { AppState } from '../../../store';
 import { connect, Dispatch } from 'react-redux';
 import { performSearch, searchByChanged, searchQueryChanged } from '../../../actions/search.actions';
+import { SearchByKinds } from '../../../api/movies.api';
 
 interface OwnProps {
   query: string;
@@ -16,14 +17,14 @@ interface StoreProps {
 }
 
 interface DispatchProps {
-  onChangeSearchBy: (property: string) => void;
+  onChangeSearchBy: (property: SearchByKinds) => void;
   onQueryChange: (query: string) => void;
 }
 
 type Props = OwnProps & StoreProps & DispatchProps;
 
 export class SearchBarComponent extends Component<Props> {
-  private searchByOptions: RadioGroupOption[] = [
+  private searchByOptions: Array<RadioGroupOption<SearchByKinds>> = [
     {value: 'name', name: 'Title'},
     {value: 'director', name: 'Director'},
   ];
@@ -39,7 +40,7 @@ export class SearchBarComponent extends Component<Props> {
   }
 
   @autobind
-  private handleSelectSearchBy(searchBy: RadioGroupOption) {
+  private handleSelectSearchBy(searchBy: RadioGroupOption<SearchByKinds>) {
     this.props.onChangeSearchBy(searchBy.value);
   }
 

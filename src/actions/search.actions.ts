@@ -1,18 +1,27 @@
 import { ThunkAction } from 'redux-thunk';
 import { AppState } from '../store';
-import { moviesReceived } from './movies.actions';
 import { SortingKinds } from '../reducers/search.reducer';
+import { MoviesApi } from '../api/movies.api';
+import { MovieCollection } from '../../shared/movie-item.model';
 
 export enum SearchActions {
-  searchStarted = 'Search Started',
-  searchByChanged = 'Search by Changed',
-  queryChanged = 'Search Query Changed',
-  sortingChanged = 'Search Sorting Changed',
+  searchStarted = '[Search] Search Started',
+  searchReceived = '[Search] Search Received',
+  searchByChanged = '[Search] Search by Changed',
+  queryChanged = '[Search] Search Query Changed',
+  sortingChanged = '[Search] Search Sorting Changed',
 }
 
 export function searchStarted() {
   return {
     type: SearchActions.searchStarted,
+  };
+}
+
+export function searchReceived(movies: MovieCollection) {
+  return {
+    type: SearchActions.searchReceived,
+    movies,
   };
 }
 
@@ -42,8 +51,7 @@ export function performSearch(): ThunkAction<Promise<any>, AppState, void> {
 
     const state = getState();
 
-    return fetch(`/api/search/${state.search.searchBy}/${state.search.query}`)
-      .then((res) => res.json())
-      .then((data) => dispatch(moviesReceived(data)));
+    return MoviesApi.searchMovies(state.search.searchBy, state.search.query)
+      .then((data) => dispatch(searchReceived(data)));
   };
 }

@@ -11,7 +11,7 @@ import { SearchUrlParams } from '../../routing/search';
 import { SearchBarContainer } from './search-bar/search-bar.component';
 import { AppState } from '../../store';
 import { connect } from 'react-redux';
-import { MovieCollection } from '../../reducers/movies.reducer';
+import { MovieCollection } from '../../../shared/movie-item.model';
 import { Dispatch } from 'redux';
 import { searchSortingChanged } from '../../actions/search.actions';
 import { SortingKinds } from '../../reducers/search.reducer';
@@ -123,7 +123,7 @@ function mapStateToProps(state: AppState): StoreProps {
   return {
     sorting: state.search.sorting,
     searchBy: state.search.searchBy,
-    movies: sortMovies(state.movies, state.search.sorting),
+    movies: sortMovies(state.search.movies, state.search.sorting),
   };
 }
 
