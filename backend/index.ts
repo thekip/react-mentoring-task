@@ -22,9 +22,23 @@ app.get('/search/:searchBy/:query', (req: Request, res: Response) => {
   return res.send([]);
 });
 
+app.get('/movie/:name', (req: Request, res: Response) => {
+  if (req.params.name) {
+    return res.send(getMovie(req.params.name));
+  }
+
+  return res.send({});
+});
 function getMovies(query: string, searchKey: keyof MovieItemModel): MovieItemModel[] {
-  return db
-    .filter((movie) => (movie[searchKey] as string).toLowerCase().includes(query.toLowerCase()));
+  return db.filter((movie) =>
+    (movie[searchKey] as string).toLowerCase().includes(query.toLowerCase()),
+  );
+}
+
+function getMovie(name: string): MovieItemModel {
+  return db.find((item) =>
+    item.name.toLowerCase() === name.toLowerCase(),
+  );
 }
 
 app.listen(3000, () => {
