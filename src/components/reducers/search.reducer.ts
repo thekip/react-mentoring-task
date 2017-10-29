@@ -1,27 +1,27 @@
-import { RadioGroupOption } from '../common/radio-group/radio-group.component';
-import { MovieItemModel } from '../../movie-item.model';
+import { SearchActions } from '../actions/search.actions';
+
+export type SortingKinds = 'releaseYear' | 'rating';
 
 export interface SearchState {
-  sortingOptions: RadioGroupOption[];
-  sorting: RadioGroupOption;
-  searchBy: string;
-  movies: MovieItemModel[];
+  readonly sorting: SortingKinds;
+  readonly searchBy: string;
+  readonly query: string;
 }
 
-const sortingOptions: RadioGroupOption[] = [
-  {value: 'releaseYear', name: 'release date'},
-  {value: 'rating', name: 'rating'},
-];
-
 const initialState: SearchState = {
-  sortingOptions,
-  sorting: sortingOptions[0],
+  sorting: 'releaseYear',
   searchBy: 'name',
-  movies: [],
+  query: '',
 };
 
 export function searchReducer(state: SearchState = initialState, action: any) {
   switch (action.type) {
+    case SearchActions.searchByChanged:
+      return {...state, searchBy: action.searchBy};
+    case SearchActions.queryChanged:
+      return {...state, query: action.query};
+    case SearchActions.sortingChanged:
+      return {...state, sorting: action.sorting};
     default:
       return state;
   }

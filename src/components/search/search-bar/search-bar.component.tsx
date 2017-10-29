@@ -2,23 +2,41 @@ import React, { ChangeEvent, Component, FormEvent } from 'react';
 import styles from './search-bar.scss';
 import { RadioGroupComponent, RadioGroupOption } from '../../common/radio-group/radio-group.component';
 import autobind from 'autobind-decorator';
+import { AppState } from '../../../store';
+import { connect, Dispatch } from 'react-redux';
+import { performSearch, searchByChanged, searchQueryChanged } from '../../actions/search.actions';
 
-interface SearchBarComponentProps {
+interface OwnProps {
   query: string;
-  searchBy: string;
-  onChangeSearchBy: (property: string) => void;
   onSearch: (query: string) => void;
 }
 
-export class SearchBarComponent extends Component<SearchBarComponentProps> {
+interface StoreProps {
+  searchBy: string;
+}
+
+interface DispatchProps {
+  onChangeSearchBy: (property: string) => void;
+  onQueryChange: (query: string) => void;
+}
+
+type Props = OwnProps & StoreProps & DispatchProps;
+
+export class SearchBarComponent extends Component<Props> {
   private searchByOptions: RadioGroupOption[] = [
-    { value: 'name', name: 'Title' },
-    { value: 'director', name: 'Director' },
+    {value: 'name', name: 'Title'},
+    {value: 'director', name: 'Director'},
   ];
 
   public state = {
     query: this.props.query || '',
   };
+
+  public componentDidMount() {
+    if (this.props.query) {
+      this.props.onQueryChange(this.props.query);
+    }
+  }
 
   @autobind
   private handleSelectSearchBy(searchBy: RadioGroupOption) {
@@ -28,7 +46,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   @autobind
   private handleSubmit(event: FormEvent<any>) {
     event.preventDefault();
-    this.props.onSearch(this.state.query);
+    this.props.onQueryChange(this.state.query);
   }
 
   @autobind
@@ -37,8 +55,6 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
   }
 
   public render() {
-    const searchBy = this.searchByOptions.find((o) => o.value === this.props.searchBy);
-
     return (
       <div className={styles.host}>
         <h2 className={styles.heading}>Find your movie</h2>
@@ -52,7 +68,7 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
           <div className={styles.actionsRow}>
             <span>Search by</span>
             <RadioGroupComponent
-              selected={searchBy}
+              selected={this.props.searchBy}
               options={this.searchByOptions}
               onSelect={this.handleSelectSearchBy}
             />
@@ -63,3 +79,28 @@ export class SearchBarComponent extends Component<SearchBarComponentProps> {
     );
   }
 }
+
+function mapStateToProps(state: AppState): StoreProps {
+  return {
+    searchBy: state.search.searchBy,
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch<AppState>, ownProps: OwnProps): DispatchProps {
+  return {
+    onChangeSearchBy: (property) => {
+      dispatch(searchByChanged(property));
+      dispatch(performSearch());
+    },
+    onQueryChange: (query) => {
+      dispatch(searchQueryChanged(query));
+      dispatch(performSearch());
+      ownProps.onSearch(query);
+    },
+  };
+}
+
+export const SearchBarContainer = connect<StoreProps, DispatchProps, OwnProps>(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SearchBarComponent);

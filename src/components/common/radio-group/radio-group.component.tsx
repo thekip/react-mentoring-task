@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import styles from './radio-group.scss';
 
-export interface RadioGroupOption {
-  value: string;
+export interface RadioGroupOption<T extends string = string> {
+  value: T;
   name: string;
 }
 
 export interface RadioGroupProps {
   options: RadioGroupOption[];
   type?: string;
-  selected: RadioGroupOption;
+  selected: string;
   onSelect: (option: RadioGroupOption) => void;
 }
 
 export class RadioGroupComponent extends Component<RadioGroupProps> {
   private isSelected(option: RadioGroupOption) {
-    return this.props.selected.value === option.value;
+    return this.props.selected === option.value;
   }
 
   public render() {

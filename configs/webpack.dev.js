@@ -27,6 +27,12 @@ module.exports = webpackMerge(commonConfig, {
     stats: 'minimal',
     historyApiFallback: true,
     publicPath: '/',
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        pathRewrite: {"^/api" : ""}
+      }
+    },
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,

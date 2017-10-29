@@ -8,30 +8,39 @@ import autobind from 'autobind-decorator';
 import { MovieItemModel } from '../../movie-item.model';
 import { RouteComponentProps } from 'react-router';
 import { SearchUrlParams } from '../routing/search';
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchBarContainer } from './search-bar/search-bar.component';
 import { AppState } from '../../store';
 import { connect } from 'react-redux';
 import { MovieCollection } from '../reducers/movies.reducer';
+import { Dispatch } from 'redux';
+import { searchSortingChanged } from '../actions/search.actions';
+import { SortingKinds } from '../reducers/search.reducer';
 
 type OwnProps = RouteComponentProps<SearchUrlParams>;
 
 interface StoreProps {
-  sortingOptions: RadioGroupOption[];
-  sorting: RadioGroupOption;
+  sorting: string;
   searchBy: string;
   movies: MovieCollection;
 }
 
-type Props = StoreProps & OwnProps;
+interface DispatchProps {
+  onSortingChange: (sortingKey: SortingKinds) => void;
+}
 
+type Props = StoreProps & OwnProps & DispatchProps;
+const sortingOptions: Array<RadioGroupOption<SortingKinds>> = [
+  {value: 'releaseYear', name: 'release date'},
+  {value: 'rating', name: 'rating'},
+];
 export class SearchComponent extends PureComponent<Props> {
   private getMovies(): MovieCollection {
     return this.props.movies;
   }
 
   @autobind
-  private handleSortingChange(sorting: RadioGroupOption) {
-    this.setState({sorting});
+  private handleSortingChange(sorting: RadioGroupOption<SortingKinds>) {
+    this.props.onSortingChange(sorting.value);
   }
 
   @autobind
@@ -44,11 +53,6 @@ export class SearchComponent extends PureComponent<Props> {
     this.props.history.push('/search/' + query);
   }
 
-  @autobind
-  private handleChangeSearchBy(searchBy: string) {
-    this.setState({searchBy});
-  }
-
   private renderResults(items: MovieCollection) {
     return (
       <div className={styles.host}>
@@ -59,7 +63,7 @@ export class SearchComponent extends PureComponent<Props> {
           <div className={styles.sorting}>
             <span>Sort by</span>
             <RadioGroupComponent
-              options={this.props.sortingOptions}
+              options={sortingOptions}
               selected={this.props.sorting}
               onSelect={this.handleSortingChange}
             />
@@ -92,11 +96,9 @@ export class SearchComponent extends PureComponent<Props> {
   private getHeader() {
     return (
       <HeaderComponent>
-        <SearchBarComponent
-          searchBy={this.props.searchBy}
-          onSearch={this.handleSearch}
-          onChangeSearchBy={this.handleChangeSearchBy}
-          query={this.props.match.params.query}/>
+        <SearchBarContainer
+          query={this.props.match.params.query}
+          onSearch={this.handleSearch}/>
       </HeaderComponent>
     );
   }
@@ -111,15 +113,27 @@ export class SearchComponent extends PureComponent<Props> {
   }
 }
 
+function sortMovies(movies: MovieCollection, sortingKey: keyof MovieItemModel) {
+  return [...movies]
+    .sort((a, b) => (a[sortingKey] as number) - (b[sortingKey] as number));
+}
+
 function mapStateToProps(state: AppState): StoreProps {
+
   return {
-    sortingOptions: state.search.sortingOptions,
     sorting: state.search.sorting,
     searchBy: state.search.searchBy,
-    movies: state.movies,
+    movies: sortMovies(state.movies, state.search.sorting),
   };
 }
 
-export const SearchContainer = connect<StoreProps>(
+function mapDispatchToProps(dispatch: Dispatch<AppState>): DispatchProps {
+  return {
+   onSortingChange: (sortingKey) => dispatch(searchSortingChanged(sortingKey)),
+  };
+}
+
+export const SearchContainer = connect<StoreProps, DispatchProps, OwnProps>(
   mapStateToProps,
+  mapDispatchToProps,
 )(SearchComponent);

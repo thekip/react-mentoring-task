@@ -14,21 +14,17 @@ app.get('/', (_req, res) => {
 
 app.get('/search/:searchBy/:query', (req: Request, res: Response) => {
   const searchKey = ['name', 'director'].includes(req.params.searchBy) ? req.params.searchBy : 'name';
-  const sortingKey = ['releaseYear', 'rating'].includes(req.query.sortBy) ? req.query.sortBy : 'rating';
 
   if (req.params.query) {
-    return res.send(getMovies(req.params.query, searchKey, sortingKey));
+    return res.send(getMovies(req.params.query, searchKey));
   }
 
   return res.send([]);
 });
 
-function getMovies(query: string,
-                   searchKey: keyof MovieItemModel,
-                   sortingKey: keyof MovieItemModel): MovieItemModel[] {
+function getMovies(query: string, searchKey: keyof MovieItemModel): MovieItemModel[] {
   return db
-    .filter((movie) => (movie[searchKey] as string).toLowerCase().includes(query.toLowerCase()))
-    .sort((a, b) => (a[sortingKey] as number) - (b[sortingKey] as number));
+    .filter((movie) => (movie[searchKey] as string).toLowerCase().includes(query.toLowerCase()));
 }
 
 app.listen(3000, () => {
