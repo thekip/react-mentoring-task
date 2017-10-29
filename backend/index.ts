@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { movies as db } from './movies-db';
-import { MovieItemModel } from './movie-item.model';
+import { MovieItemModel } from '../shared/movie-item.model';
 
 const app = express();
 

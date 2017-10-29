@@ -5,7 +5,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import styles from './movie.scss';
 import { RouteComponentProps } from 'react-router';
 import { MovieUrlParams } from '../../routing/movie';
-import { MovieItemModel } from '../../movie-item.model';
+import { MovieItemModel } from '../../../shared/movie-item.model';
 import autobind from 'autobind-decorator';
 import { MovieCollection } from '../../reducers/movies.reducer';
 import { AppState } from '../../store';

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { MovieItemModel } from '../../../movie-item.model';
+import { MovieItemModel } from '../../../../shared/movie-item.model';
 import styles from './movie-item.scss';
 
 interface MoviesItemComponentProps {

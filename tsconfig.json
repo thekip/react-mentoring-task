@@ -30,7 +30,8 @@
     "experimentalDecorators": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "shared/**/*"
   ],
   "exclude": [
     "node_modules",

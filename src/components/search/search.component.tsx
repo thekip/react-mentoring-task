@@ -5,7 +5,7 @@ import { MoviesListComponent } from '../movies-list/movies-list.component';
 import { RadioGroupComponent, RadioGroupOption } from '../common/radio-group/radio-group.component';
 import { LayoutComponent } from '../layout/layout.component';
 import autobind from 'autobind-decorator';
-import { MovieItemModel } from '../../movie-item.model';
+import { MovieItemModel } from '../../../shared/movie-item.model';
 import { RouteComponentProps } from 'react-router';
 import { SearchUrlParams } from '../../routing/search';
 import { SearchBarContainer } from './search-bar/search-bar.component';
