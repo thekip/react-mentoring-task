@@ -15,12 +15,13 @@ import { MovieCollection } from '../../../shared/movie-item.model';
 import { Dispatch } from 'redux';
 import { searchSortingChanged } from '../../actions/search.actions';
 import { SortingKinds } from '../../reducers/search.reducer';
+import { SearchByKinds } from '../../api/movies.api';
 
 type OwnProps = RouteComponentProps<SearchUrlParams>;
 
 interface StoreProps {
-  sorting: string;
-  searchBy: string;
+  sorting: SortingKinds;
+  searchBy: SearchByKinds;
   movies: MovieCollection;
 }
 
@@ -34,10 +35,6 @@ const sortingOptions: Array<RadioGroupOption<SortingKinds>> = [
   {value: 'rating', name: 'rating'},
 ];
 export class SearchComponent extends PureComponent<Props> {
-  private getMovies(): MovieCollection {
-    return this.props.movies;
-  }
-
   @autobind
   private handleSortingChange(sorting: RadioGroupOption<SortingKinds>) {
     this.props.onSortingChange(sorting.value);
@@ -86,10 +83,8 @@ export class SearchComponent extends PureComponent<Props> {
   }
 
   private getContent() {
-    const items = this.getMovies();
-
-    return items.length
-      ? this.renderResults(items)
+    return this.props.movies.length
+      ? this.renderResults(this.props.movies)
       : this.renderEmptyState();
   }
 
@@ -119,7 +114,6 @@ function sortMovies(movies: MovieCollection, sortingKey: keyof MovieItemModel) {
 }
 
 function mapStateToProps(state: AppState): StoreProps {
-
   return {
     sorting: state.search.sorting,
     searchBy: state.search.searchBy,
