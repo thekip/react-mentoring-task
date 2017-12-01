@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { MovieItemModel } from '../../shared/movie-item.model';
+import { MovieItemModel } from '../../../shared/movie-item.model';
 import { movies as db } from '../movies-db';
 import { app } from '../app';
 

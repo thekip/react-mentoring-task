@@ -4,13 +4,13 @@ process.noDeprecation = true;
 
 const paths = require('./path-helpers');
 const env = require('./env-config');
+const sassLoaders = require('./sass-loaders');
 
 /**
  * Webpack Plugins
  */
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 
 /**
@@ -19,6 +19,7 @@ const { CheckerPlugin } = require('awesome-typescript-loader');
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 module.exports = {
+  name: 'client',
   /**
    * The entry point for the bundle
    * Our Angular.js app
@@ -91,35 +92,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]',
-                importLoaders: 1,
-                sourceMap: true,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                config: {
-                  path: paths.relative('postcss.config.js'),
-                },
-                sourceMap: true,
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
-          ],
-        }),
+        use: sassLoaders,
       },
       {
         test: /\.html$/,
@@ -179,10 +152,7 @@ module.exports = {
       },
     }),
 
-    new ExtractTextPlugin({
-      filename: env.IS_DEV ? 'css/[name].css' : 'css/[contenthash].css',
-      allChunks: true,
-    }),
+
     /**
      * Private section Entry HTML
      */

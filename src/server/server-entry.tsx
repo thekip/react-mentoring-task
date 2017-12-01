@@ -1,15 +1,12 @@
-import { app } from '../app';
-import fs from 'fs';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { App } from '../../src/components/app.component';
+import fs from 'fs';
 import { Request, Response } from 'express';
+import { App } from '../components/app.component';
 
-app.get('*', handleRender);
-
-function handleRender(_req: Request, res: Response) {
+export function handleRender(_req: Request, res: Response) {
   const html = ReactDOMServer.renderToString(
-    <App />,
+    <App/>,
   );
   fs.readFile('./index.html', 'utf8', (_err, file) => {
     // if (err) {

@@ -4,6 +4,8 @@ const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common');
 
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const sassLoaders = require('./sass-loaders');
 
 /**
  * Webpack configuration
@@ -11,28 +13,44 @@ const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
 module.exports = webpackMerge(commonConfig, {
-    devtool: 'source-map',
-    output: {
-        /**
-         * Specifies the name of each output file on disk.
-         * IMPORTANT: You must not specify an absolute path here!
-         *
-         * See: http://webpack.github.io/docs/configuration.html#output-filename
-         */
-        filename: '[name].[chunkhash].bundle.js',
+  devtool: 'source-map',
+  output: {
+    /**
+     * Specifies the name of each output file on disk.
+     * IMPORTANT: You must not specify an absolute path here!
+     *
+     * See: http://webpack.github.io/docs/configuration.html#output-filename
+     */
+    filename: '[name].[chunkhash].bundle.js',
 
-        /**
-         * The filename of non-entry chunks as relative path
-         * inside the output.path directory.
-         *
-         * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
-         */
-        chunkFilename: '[name].[chunkhash].chunk.js',
-
-    },
-    plugins: [
-        new UglifyJsPlugin({
-            sourceMap: true,
+    /**
+     * The filename of non-entry chunks as relative path
+     * inside the output.path directory.
+     *
+     * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
+     */
+    chunkFilename: '[name].[chunkhash].chunk.js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: sassLoaders,
         }),
+      },
     ],
+  },
+
+  plugins: [
+    new UglifyJsPlugin({
+      sourceMap: true,
+    }),
+
+    new ExtractTextPlugin({
+      filename: 'css/[contenthash].css',
+      allChunks: true,
+    }),
+  ],
 });
